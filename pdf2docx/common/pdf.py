@@ -558,7 +558,10 @@ def _check_device_cs(doc:fitz.Document, page:fitz.Page):
 
         # now within cs block, e.g. /Cs6 14 0 R
         cs_name, xref, *_ = line.split()
-        cs[cs_name] = _is_device_cs(int(xref), doc)
+        try:
+            cs[cs_name] = _is_device_cs(int(xref), doc)
+        except ValueError:
+            cs[cs_name] = False
 
     return cs
 
